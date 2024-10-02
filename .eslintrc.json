@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "quotes": [
+      "error",
+      "double",
+      { "avoidEscape": true, "allowTemplateLiterals": true }
+    ],
+    "semi": ["error", "always"],
+    "function-paren-newline": ["error", { "minItems": 5 }],
+    "function-call-argument-newline": ["off"],
+    "eqeqeq": ["error", "always"],
+    "curly": ["error", "all"],
+    "constructor-super": ["error"],
+    "no-constant-condition": ["off"],
+    "no-undef": ["off"],
+    "no-unused-vars": ["off"],
+    "no-empty": ["off"],
+    "no-empty-function": ["off"],
+    "no-var": ["error"],
+    "prefer-const": ["off"],
+    "ban-ts-comment": ["off"],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "spaced-comment": ["error", "always"]
+  }
+}
