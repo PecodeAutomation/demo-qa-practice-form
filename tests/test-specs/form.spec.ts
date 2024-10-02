@@ -1,6 +1,8 @@
 import { test, expect } from '../fixtures/pageFixture';
-import { ENDPOINTS, USER_DETAILS, MESSAGES } from '../utils/constants';
+import { ENDPOINTS, USER_DETAILS } from '../utils/constants';
 import { faker } from '@faker-js/faker';
+import dayjs from 'dayjs';
+
 
 test.describe('Student Registration Form Tests', () => {
   test.beforeEach(async ({ formPage }) => {
@@ -11,11 +13,12 @@ test.describe('Student Registration Form Tests', () => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email();
+    const dateOfBirth = dayjs().subtract(18, 'year').format('DD MMMM, YYYY');
 
     await formPage.fillPersonalDetails(firstName, lastName, email);
     await formPage.selectGender('Male');
     await formPage.fillMobileNumber(USER_DETAILS.mobileNumber);
-    await formPage.selectDateOfBirth('02 Oct 2024');
+    await formPage.selectDateOfBirth(dateOfBirth);
     await formPage.fillSubjects(USER_DETAILS.subjects.join(', '));
     await formPage.selectHobbies(USER_DETAILS.hobbies);
     await formPage.uploadPicture(USER_DETAILS.picturePath);
@@ -28,7 +31,7 @@ test.describe('Student Registration Form Tests', () => {
     await formPage.verifyStudentEmail(email);
     await formPage.verifyStudentGender('Male');
     await formPage.verifyStudentMobileNumber(USER_DETAILS.mobileNumber);
-    await formPage.verifyStudentBirthDate('02 October,2024');
+    await formPage.verifyStudentBirthDate(dayjs(dateOfBirth).format('DD MMMM,YYYY'));
     await formPage.verifyStudentSubjects(USER_DETAILS.subjects.join(', '));
     await formPage.verifyStudentHobbies(USER_DETAILS.hobbies.join(', '));
     await formPage.verifyStudentPicture('Test-Logo.svg.png');
