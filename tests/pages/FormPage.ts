@@ -1,5 +1,5 @@
 import {expect, FrameLocator, Locator, Page} from '@playwright/test';
-import { MESSAGES } from '../utils/constants';
+import {MESSAGES} from '../utils/constants';
 
 export class FormPage {
   // ===========================Locators=====================
@@ -54,6 +54,7 @@ export class FormPage {
     this.tableStateAndCity = page.locator(`td:has-text('State and City') + td`);
   }
 
+  // ===========================Actions=====================
   async visit(url: string) {
     await this.page.goto(url);
   }
@@ -72,7 +73,7 @@ export class FormPage {
   }
 
   async selectGender(gender: string) {
-    await this.page.getByText(gender, { exact: true }).click();
+    await this.page.getByText(gender, {exact: true}).click();
   }
 
   async fillMobileNumber(mobile: string) {
@@ -106,25 +107,25 @@ export class FormPage {
 
   async selectState(state: string) {
     await this.stateDropdown.click();
-    await this.page.getByText(state, { exact: true }).click();
+    await this.page.getByText(state, {exact: true}).click();
   }
 
   async selectCity(city: string) {
     await this.cityDropdown.click();
-    await this.page.getByText(city, { exact: true }).click();
+    await this.page.getByText(city, {exact: true}).click();
   }
 
   async submitForm() {
     expect(this.submitButton).not.toBeDisabled();
     const [response] = await Promise.all([
-        this.page.waitForResponse(response => response.request().method() === 'POST'),
-        this.submitButton.click(), 
+      this.page.waitForResponse(response => response.request().method() === 'POST'),
+      this.submitButton.click()
     ]);
 
     return response;
-}
+  }
 
-  //////////////////////////////////////////////////////////////////////////
+  // ===========================Verifications=====================
 
   async verifyStudentName(firstName: string, lastName: string) {
     await expect(this.tableFirstAndLastName).toHaveText(`${firstName} ${lastName}`);
@@ -163,17 +164,20 @@ export class FormPage {
   }
 
   async verifyStudentStateAndCity(state: string, city: string) {
-    await expect(this.tableStateAndCity ).toHaveText(`${state} ${city}`);
+    await expect(this.tableStateAndCity).toHaveText(`${state} ${city}`);
   }
 
   async verifyInvalidEmailMessage() {
-    const validationMessage = await this.emailInput.evaluate(input => (input as HTMLInputElement).validationMessage);
+    const validationMessage = await this.emailInput.evaluate(
+      input => (input as HTMLInputElement).validationMessage
+    );
     expect(validationMessage).toBe(MESSAGES.emailMatchErrorMessage);
   }
 
   async verifyInvalidMobileNumberMessage() {
-    const validationMessage = await this.mobileInput.evaluate(input => (input as HTMLInputElement).validationMessage);
+    const validationMessage = await this.mobileInput.evaluate(
+      input => (input as HTMLInputElement).validationMessage
+    );
     expect(validationMessage).toBe(MESSAGES.mobileMatchErrorMessage);
   }
-  
 }
