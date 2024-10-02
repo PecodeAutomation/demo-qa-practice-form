@@ -16,7 +16,7 @@ test.describe('Student Registration Form Tests', () => {
     const dateOfBirth = dayjs().subtract(18, 'year').format('DD MMMM, YYYY');
 
     await formPage.fillPersonalDetails(firstName, lastName, email);
-    await formPage.selectGender('Male');
+    await formPage.selectGender(USER_DETAILS.gender);
     await formPage.fillMobileNumber(USER_DETAILS.mobileNumber);
     await formPage.selectDateOfBirth(dateOfBirth);
     await formPage.fillSubjects(USER_DETAILS.subjects.join(', '));
@@ -29,7 +29,7 @@ test.describe('Student Registration Form Tests', () => {
 
     await formPage.verifyStudentName(firstName, lastName);
     await formPage.verifyStudentEmail(email);
-    await formPage.verifyStudentGender('Male');
+    await formPage.verifyStudentGender(USER_DETAILS.gender);
     await formPage.verifyStudentMobileNumber(USER_DETAILS.mobileNumber);
     await formPage.verifyStudentBirthDate(dayjs(dateOfBirth).format('DD MMMM,YYYY'));
     await formPage.verifyStudentSubjects(USER_DETAILS.subjects.join(', '));
@@ -40,10 +40,12 @@ test.describe('Student Registration Form Tests', () => {
   });
 
   test('Invalid email input shows error', async ({ formPage }) => {
+    const dateOfBirth = dayjs().subtract(18, 'year').format('DD MMMM, YYYY');
+
     await formPage.fillPersonalDetails(USER_DETAILS.firstName, USER_DETAILS.lastName, USER_DETAILS.invalidEmail);
-    await formPage.selectGender('Male');
+    await formPage.selectGender(USER_DETAILS.gender);
     await formPage.fillMobileNumber(USER_DETAILS.mobileNumber);
-    await formPage.selectDateOfBirth('02 Oct 2024');
+    await formPage.selectDateOfBirth(dateOfBirth);
     await formPage.fillSubjects(USER_DETAILS.subjects.join(', '));
     await formPage.selectHobbies(USER_DETAILS.hobbies);
     await formPage.uploadPicture(USER_DETAILS.picturePath);
@@ -56,10 +58,12 @@ test.describe('Student Registration Form Tests', () => {
   });
 
   test('Invalid mobile number shows error', async ({ formPage }) => {
+    const dateOfBirth = dayjs().subtract(18, 'year').format('DD MMMM, YYYY');
+    
     await formPage.fillPersonalDetails(USER_DETAILS.firstName, USER_DETAILS.lastName, USER_DETAILS.email);
-    await formPage.selectGender('Male');
+    await formPage.selectGender(USER_DETAILS.gender);
     await formPage.fillMobileNumber(USER_DETAILS.invalidMobileNumber);
-    await formPage.selectDateOfBirth('02 Oct 2024');
+    await formPage.selectDateOfBirth(dateOfBirth);
     await formPage.fillSubjects(USER_DETAILS.subjects.join(', '));
     await formPage.selectHobbies(USER_DETAILS.hobbies);
     await formPage.uploadPicture(USER_DETAILS.picturePath);

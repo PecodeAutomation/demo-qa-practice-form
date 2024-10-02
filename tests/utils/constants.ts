@@ -4,6 +4,7 @@ export const USER_DETAILS = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'john.doe@example.com',
+  gender: 'Male',
   mobileNumber: '1234567890',
   currentAddress: '1234 Test Street',
   state: 'NCR',
